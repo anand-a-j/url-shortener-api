@@ -1,4 +1,4 @@
-namespace UrlShortenerApi.DIos.Auth
+namespace UrlShortenerApi.Dios.Auth
 {
     public class RegisterDtos
     {
