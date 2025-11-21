@@ -1,5 +1,6 @@
 using UrlShortenerApi.Dios.Auth;
 using UrlShortenerApi.Entities;
+
 namespace UrlShortenerApi.Interfaces
 {
     public interface IAuthService

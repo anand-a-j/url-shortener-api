@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using UrlShortenerApi.Entities;
 
 namespace UrlShortenerApi.Data
 {
@@ -12,8 +13,6 @@ namespace UrlShortenerApi.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
-
-            modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
 
             modelBuilder.Entity<ShortLink>().HasIndex(s => s.Code).IsUnique();
 
