@@ -1,4 +1,4 @@
-using UrlShortenerApi.Dios.Auth;
+using UrlShortenerApi.DTOs.Auth;
 using UrlShortenerApi.Entities;
 
 namespace UrlShortenerApi.Interfaces
