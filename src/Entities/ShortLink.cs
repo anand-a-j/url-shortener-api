@@ -1,3 +1,5 @@
+using UrlShortenerApi.Entities;
+
 public class ShortLink
 {
     public int Id { get; set; }
