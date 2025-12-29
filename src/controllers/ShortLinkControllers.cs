@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UrlShortenerApi.Interfaces;
@@ -21,7 +22,7 @@ namespace UrlShortenerApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Create (CreateShortLinkDto dto)
         {
-            int userId = int.Parse(User.FindFirst("sub")!.Value);
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
             var link = await _shortLinks.CreateShortLinkAsync(dto,userId);
 

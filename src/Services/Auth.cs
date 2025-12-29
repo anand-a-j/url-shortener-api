@@ -1,4 +1,5 @@
 using System.Diagnostics.Tracing;
+using System.Net;
 using Microsoft.EntityFrameworkCore;
 using UrlShortenerApi.Data;
 using UrlShortenerApi.DTOs.Auth;
@@ -23,7 +24,7 @@ namespace UrlShortenerApi.Services
         {
             var exists = await _db.Users.AnyAsync(x => x.Email == dto.Email);
 
-            if(exists) throw new Exception("Email Already registered!!!");
+            if(exists) throw new AppException("Email already registered", HttpStatusCode.Conflict);
 
             var user = new User
             {
@@ -43,13 +44,14 @@ namespace UrlShortenerApi.Services
         {
             var user = await _db.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
 
-            if(user == null) 
-             throw new Exception("User doesn't exist or invaild email");
+            if(user == null)
+                throw new AppException("User doesn't exist or invaild email", HttpStatusCode.NotFound);
+    
 
             bool vaildPassword = BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash);
 
             if(!vaildPassword)
-             throw new Exception("Invaild email or password");
+                throw new AppException("Invaild email or password", HttpStatusCode.NotFound);
 
              return _jwt.GenerateToken(user);
         }

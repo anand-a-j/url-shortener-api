@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.EntityFrameworkCore;
 using UrlShortenerApi.Data;
 using UrlShortenerApi.Helpers;
@@ -48,8 +49,8 @@ namespace UrlShortenerApi.Services
         {
            var link = await _db.ShortLinks.FirstOrDefaultAsync(x=> x.Code == code);
 
-           if(link == null) 
-            throw new Exception("invaild shortcode");
+           if(link == null)
+                throw new AppException("Invalid shortcode", HttpStatusCode.NotFound);
 
             link.ClickCount++;
             await _db.SaveChangesAsync();

@@ -12,6 +12,10 @@ namespace UrlShortenerApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            // // ADD THIS LINE for PostgreSQL conventions:
+            // modelBuilder.UseSnakeCaseNamingConvention();
+            
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
 
             modelBuilder.Entity<ShortLink>().HasIndex(s => s.Code).IsUnique();
