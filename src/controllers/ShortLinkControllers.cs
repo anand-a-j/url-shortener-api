@@ -20,11 +20,16 @@ namespace UrlShortenerApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create (CreateShortLinkDto dto)
+        public async Task<IActionResult> Create(CreateShortLinkDto dto)
         {
-            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
 
-            var link = await _shortLinks.CreateShortLinkAsync(dto,userId);
+            if (userIdClaim == null)
+                return Unauthorized("User not authenticated");
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            var link = await _shortLinks.CreateShortLinkAsync(dto, userId);
 
             return Ok(new
             {
@@ -37,9 +42,16 @@ namespace UrlShortenerApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUserLinks()
         {
-            int userId = int.Parse(User.FindFirst("sub")!.Value);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null)
+                return Unauthorized("User not authenticated");
+
+            int userId = int.Parse(userIdClaim.Value);
 
             var links = await _shortLinks.GetUserLinksAsync(userId);
+
+
 
             return Ok(links);
         }
