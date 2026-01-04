@@ -32,6 +32,7 @@ This project focuses on core backend fundamentals like authentication, database 
 
 ## 📂 Project Structure
 
+```bash
 ├── Program.cs
 ├── Migrations/
 ├── src/
@@ -43,6 +44,7 @@ This project focuses on core backend fundamentals like authentication, database 
 │ ├── DTOs/
 │ └── Data/
 └── Properties/
+```
 
 
 ## 🔐 Authentication Flow
