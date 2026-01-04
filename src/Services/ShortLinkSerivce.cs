@@ -57,5 +57,10 @@ namespace UrlShortenerApi.Services
 
             return link.OriginalUrl;
         }
+
+        public Task<bool> DeleteShortLinkAsync(int linkId, int userId)
+        {
+            
+        }
     }
 }

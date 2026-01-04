@@ -37,8 +37,6 @@ namespace UrlShortenerApi.Middleware
             }
         }
 
-
-        // Map exceptions to HTTP status codes and a consistent response shape
         private static  (HttpStatusCode statusCode, object response) MapExpectionToProblem(Exception ex)
         {
             if(ex is AppException appEx)

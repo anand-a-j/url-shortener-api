@@ -19,12 +19,10 @@ builder.Services.AddSingleton<JwtHelper>();
 
 builder.Services.AddScoped<IShortLinkService, ShortLinkService>();
 
-// Connecting with database
 builder.Services.AddDbContext<AppDbContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-// Configure Authentication & JWT
 builder.Services.AddAuthentication(options =>
 {
 

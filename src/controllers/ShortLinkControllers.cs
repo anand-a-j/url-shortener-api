@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -51,9 +50,25 @@ namespace UrlShortenerApi.Controllers
 
             var links = await _shortLinks.GetUserLinksAsync(userId);
 
-
-
             return Ok(links);
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+
+            if(userIdClaim == null)
+               return Unauthorized("User not authenticated");
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            var deleted = await _shortLinks.DeleteShortLinkAsync(id, userId);
+
+            if(!deleted)
+              return NotFound("Link not found or you don't have access");
+
+            return NoContent();
         }
     }
 }
