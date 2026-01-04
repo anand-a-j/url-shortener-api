@@ -103,5 +103,5 @@ dotnet run
 ### 5. Open Swagger
 Once the application is running, navigate to: https://localhost:{port}/swagger
 
-# 👤 Author
-Anand
+### 👤 Author
+Anand A J
