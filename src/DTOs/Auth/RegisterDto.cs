@@ -1,6 +1,6 @@
 namespace UrlShortenerApi.DTOs.Auth
 {
-    public class RegisterDtos
+    public class RegisterDto
     {
         public string Username { get; set; } = null!;
         public string Email { get; set; } = null!;

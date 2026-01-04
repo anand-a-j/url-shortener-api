@@ -5,7 +5,7 @@ namespace UrlShortenerApi.Interfaces
 {
     public interface IAuthService
     {
-        Task<User> RegisterAsync(RegisterDtos dto);
-        Task<string> LoginAsync(LoginDtos dto);
+        Task<User> RegisterAsync(RegisterDto dto);
+        Task<string> LoginAsync(LoginDto dto);
     }
 }

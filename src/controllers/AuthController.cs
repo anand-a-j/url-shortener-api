@@ -16,7 +16,7 @@ namespace UrlShortenerApi.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterDtos dto)
+        public async Task<IActionResult> Register(RegisterDto dto)
         {
             var user = await _auth.RegisterAsync(dto);
             return Ok(new { user.Id, user.Username, user.Email });
@@ -24,7 +24,7 @@ namespace UrlShortenerApi.Controllers
 
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDtos dto)
+        public async Task<IActionResult> Login(LoginDto dto)
         {
             var token = await _auth.LoginAsync(dto);
             return Ok(new { token });

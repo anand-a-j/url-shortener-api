@@ -47,9 +47,9 @@ namespace UrlShortenerApi.Services
 
         public async Task<string> ResolveUrlAsync(string code)
         {
-           var link = await _db.ShortLinks.FirstOrDefaultAsync(x=> x.Code == code);
+            var link = await _db.ShortLinks.FirstOrDefaultAsync(x => x.Code == code);
 
-           if(link == null)
+            if (link == null)
                 throw new AppException("Invalid shortcode", HttpStatusCode.NotFound);
 
             link.ClickCount++;
@@ -58,9 +58,17 @@ namespace UrlShortenerApi.Services
             return link.OriginalUrl;
         }
 
-        public Task<bool> DeleteShortLinkAsync(int linkId, int userId)
+        public async Task<bool> DeleteShortLinkAsync(int linkId, int userId)
         {
-            
+            var link = await _db.ShortLinks.FirstOrDefaultAsync(x => x.Id == linkId && x.UserId == userId);
+
+            if (link == null)
+                return false;
+
+            _db.ShortLinks.Remove(link);
+            await _db.SaveChangesAsync();
+
+            return true;
         }
     }
 }

@@ -20,11 +20,11 @@ namespace UrlShortenerApi.Services
             _jwt = jwt;
         }
 
-        public async Task<User> RegisterAsync(RegisterDtos dto)
+        public async Task<User> RegisterAsync(RegisterDto dto)
         {
             var exists = await _db.Users.AnyAsync(x => x.Email == dto.Email);
 
-            if(exists) throw new AppException("Email already registered", HttpStatusCode.Conflict);
+            if (exists) throw new AppException("Email already registered", HttpStatusCode.Conflict);
 
             var user = new User
             {
@@ -40,20 +40,20 @@ namespace UrlShortenerApi.Services
             return user;
         }
 
-        public async Task<string> LoginAsync(LoginDtos dto)
+        public async Task<string> LoginAsync(LoginDto dto)
         {
             var user = await _db.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
 
-            if(user == null)
+            if (user == null)
                 throw new AppException("User doesn't exist or invaild email", HttpStatusCode.NotFound);
-    
+
 
             bool vaildPassword = BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash);
 
-            if(!vaildPassword)
-                throw new AppException("Invaild email or password", HttpStatusCode.NotFound);
+            if (!vaildPassword)
+                throw new AppException("Invalid email or password", HttpStatusCode.NotFound);
 
-             return _jwt.GenerateToken(user);
+            return _jwt.GenerateToken(user);
         }
     }
 }
